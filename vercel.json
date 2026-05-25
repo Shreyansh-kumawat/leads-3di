@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/confirm-password", "destination": "/confirm-password.html" },
+    { "source": "/fh83-user-028-leads-rs-1000", "destination": "/fh83-user-028-leads-rs-1000.html" }
+  ]
+}

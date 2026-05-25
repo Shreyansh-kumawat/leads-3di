@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3Digree – Leads</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f6ff;
+      color: #1a1a2e;
+      min-height: 100dvh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #d0e4f7;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 1px 8px rgba(30,100,200,0.06);
+    }
+    .brand {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #1a6fdb;
+      letter-spacing: -0.5px;
+    }
+    .header-meta {
+      font-size: 0.75rem;
+      color: #6b8aad;
+      font-weight: 400;
+    }
+
+    /* ── Main wrapper ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .page-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 0.3rem;
+    }
+    .page-sub {
+      font-size: 0.8rem;
+      color: #6b8aad;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── Lead Card ── */
+    .lead-card {
+      background: #ffffff;
+      border: 1px solid #d0e4f7;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 14px rgba(30,100,200,0.06);
+    }
+
+    .card-header {
+      background: #e8f1fd;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid #d0e4f7;
+    }
+    .lead-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #1a6fdb;
+      background: #fff;
+      border: 1.5px solid #c0d8f7;
+      border-radius: 6px;
+      padding: 0.2rem 0.55rem;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .lead-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a2a4a;
+      letter-spacing: -0.2px;
+    }
+
+    .card-body {
+      padding: 1.1rem 1.25rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    /* Two-col grid for fields */
+    .fields-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem 1.25rem;
+    }
+    @media (max-width: 560px) {
+      .fields-grid { grid-template-columns: 1fr; }
+    }
+
+    .field { display: flex; flex-direction: column; gap: 0.2rem; }
+    .field-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #6b8aad;
+    }
+    .field-value {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: #1a1a2e;
+    }
+    .field-value a {
+      color: #1a6fdb;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .field-value a:hover { text-decoration: underline; }
+
+    /* Full-width fields */
+    .field-full { grid-column: 1 / -1; }
+
+    /* Why value pill */
+    .info-block {
+      background: #f7faff;
+      border: 1px solid #d8ecff;
+      border-radius: 9px;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: #2a3a5a;
+      line-height: 1.65;
+    }
+
+    /* Confidential block */
+    .conf-block {
+      background: #fffbea;
+      border: 1px solid #f0e68c;
+      border-radius: 9px;
+      padding: 0.65rem 1rem;
+      font-size: 0.82rem;
+      color: #5a4800;
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+    .conf-icon { flex-shrink: 0; margin-top: 1px; }
+
+    /* Outreach badge */
+    .outreach-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #e0f0ff;
+      color: #1a6fdb;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 100px;
+      padding: 0.25rem 0.75rem;
+      border: 1px solid #b8d8f8;
+    }
+
+    /* Status badge */
+    .status-none {
+      display: inline-block;
+      background: #fdecea;
+      color: #b52a2a;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 100px;
+      padding: 0.22rem 0.65rem;
+      border: 1px solid #f5c2c7;
+    }
+    .status-low {
+      display: inline-block;
+      background: #fff3cd;
+      color: #856404;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 100px;
+      padding: 0.22rem 0.65rem;
+      border: 1px solid #ffdb70;
+    }
+
+    /* Time badge */
+    .time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: #f0f6ff;
+      color: #2a5aaa;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 8px;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid #c4d8f5;
+    }
+
+    /* Images */
+    .images-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.2rem;
+    }
+    .lead-img {
+      border-radius: 9px;
+      border: 1px solid #d0e4f7;
+      max-height: 200px;
+      max-width: 100%;
+      object-fit: cover;
+      width: auto;
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid #e2eef9;
+      margin: 0.2rem 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.72rem;
+      color: #9bb0cc;
+      padding: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">3Digree</div>
+    <div class="header-meta">Leads Report &nbsp;·&nbsp; Confidential</div>
+  </header>
+
+  <main>
+    <div class="page-title">Sales Leads — Batch RS-1000</div>
+    <div class="page-sub">5 leads &nbsp;·&nbsp; Jaipur Region &nbsp;·&nbsp; For internal use only</div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━ LEAD 1 ━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="lead-card">
+      <div class="card-header">
+        <span class="lead-num">#01</span>
+        <span class="lead-name">Taraji Saree</span>
+      </div>
+      <div class="card-body">
+        <div class="fields-grid">
+          <div class="field">
+            <span class="field-label">Phone</span>
+            <span class="field-value"><a href="tel:06367900433">06367900433</a></span>
+          </div>
+          <div class="field">
+            <span class="field-label">Outreach Method</span>
+            <span class="outreach-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.51 16z"/></svg>
+              Cold Call
+            </span>
+          </div>
+          <div class="field">
+            <span class="field-label">Suggested Outreach Time</span>
+            <span class="field-value">
+              <span class="time-badge">1 PM – 4 PM</span>
+            </span>
+          </div>
+          <div class="field">
+            <span class="field-label">Website Status</span>
+            <span class="status-low">Low-quality (Linktree)</span>
+          </div>
+          <div class="field field-full">
+            <span class="field-label">Address</span>
+            <span class="field-value">First floor, 4/22, Shivanand Marg, Vidyut Abhiyanta Colony, Malviya Nagar, Jaipur</span>
+          </div>
+          <div class="field field-full">
+            <span class="field-label">Current Website</span>
+            <span class="field-value"><a href="https://linktr.ee/tarajisaree" target="_blank" rel="noopener noreferrer">linktr.ee/tarajisaree</a></span>
+          </div>
+        </div>
+        <hr class="divider" />
+        <div class="field">
+          <span class="field-label">Why This Lead Is Valuable</span>
+          <div class="info-block">They do not have a dedicated website and currently rely on a Linktree redirect page. A proper website could enable online ordering, especially since they already offer home delivery through WhatsApp. A professional website would also help them showcase their saree collection more effectively — with product images, videos, item listings, and an admin panel.</div>
+        </div>
+        <div class="conf-block">
+          <svg class="conf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a08000" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span><strong>Confidential:</strong> A <code>.in</code> domain can be used — more affordable at approx ₹899/year.</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Store Image</span>
+          <div class="images-row">
+            <img class="lead-img" src="https://lh3.googleusercontent.com/grass-cs/ANxoTn3Vbsu0mvmAC1kzczD0srK-bg7Uj0KfjwEwlby5HqusUgmI25uVZnOVW81I5jN_apNXcQIUpIjxxj7v1X0hglO_j3uY53ufPS29Qm12vWtojqy-nKL4zNXMcc1Dmh8-ewkBsgoB0pvTajq4=w413-h619-p-k" alt="Taraji Saree store interior" width="413" height="619" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━ LEAD 2 ━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="lead-card">
+      <div class="card-header">
+        <span class="lead-num">#02</span>
+        <span class="lead-name">Sugandh Ghar (Perfume)</span>
+      </div>
+      <div class="card-body">
+        <div class="fields-grid">
+          <div class="field">
+            <span class="field-label">Phone</span>
+            <span class="field-value"><a href="tel:09799009704">09799009704</a></span>
+          </div>
+          <div class="field">
+            <span class="field-label">Outreach Method</span>
+            <span class="outreach-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.51 16z"/></svg>
+              Cold Call
+            </span>
+          </div>
+          <div class="field">
+            <span class="field-label">Suggested Outreach Time</span>
+            <span class="field-value"><span class="time-badge">12 PM – 4 PM</span></span>
+          </div>
+          <div class="field">
+            <span class="field-label">Website Status</span>
+            <span class="status-none">No Website</span>
+          </div>
+          <div class="field field-full">
+            <span class="field-label">Address</span>
+            <span class="field-value">Opp. Global Heart Hospital, C/139, C, Gandhi Path Rd, Vaishali Nagar, Jaipur</span>
+          </div>
+        </div>
+        <hr class="divider" />
+        <div class="field">
+          <span class="field-label">Why This Lead Is Valuable</span>
+          <div class="info-block">They sell a wide variety of products including puja samagri, perfumes, spiritual items, and Hindu God moorties — yet have no website. A website would help them professionally showcase their inventory and increase online orders, with product images, videos, item listings, and an admin panel. They appear to have strong sales potential.</div>
+        </div>
+        <div class="conf-block">
+          <svg class="conf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a08000" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span><strong>Confidential:</strong> A <code>.com</code> domain can be used — approx ₹1,299/year.</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Store Image</span>
+          <div class="images-row">
+            <img class="lead-img" src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGVS9nxvXlf-AWECOBpYs24Nc7Ouykmbqp_FD9XSCG2gUBiQ3cxACrobe58n04R7uRQokyH1NR8cm6gnVkzj_8DOow4RB7vVX43dvGOtuXc8jqHDMZrE2AbRmlLQaMPgYe8mP_fuqYFE1bA=s558-k-no" alt="Sugandh Ghar store" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━ LEAD 3 ━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="lead-card">
+      <div class="card-header">
+        <span class="lead-num">#03</span>
+        <span class="lead-name">Jagdamba Jewellers Pvt Ltd</span>
+      </div>
+      <div class="card-body">
+        <div class="fields-grid">
+          <div class="field">
+            <span class="field-label">Phone</span>
+            <span class="field-value"><a href="tel:09462797350">09462797350</a></span>
+          </div>
+          <div class="field">
+            <span class="field-label">Outreach Method</span>
+            <span class="outreach-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.51 16z"/></svg>
+              Cold Call
+            </span>
+          </div>
+          <div class="field">
+            <span class="field-label">Suggested Outreach Time</span>
+            <span class="field-value"><span class="time-badge">2 PM – 4 PM</span></span>
+          </div>
+          <div class="field">
+            <span class="field-label">Website Status</span>
+            <span class="status-none">No Website</span>
+          </div>
+          <div class="field field-full">
+            <span class="field-label">Address</span>
+            <span class="field-value">B/102, near National Handloom, Krishna Nagar, Vaishali Nagar, Jaipur</span>
+          </div>
+        </div>
+        <hr class="divider" />
+        <div class="field">
+          <span class="field-label">Why This Lead Is Valuable</span>
+          <div class="info-block">Nearby jewelry stores already have websites while they do not. They appear to provide jewelry delivery services, which suggests they already have a delivery setup in place — creating a strong opportunity to pitch a website where customers can browse collections online and request home delivery.</div>
+        </div>
+        <div class="conf-block">
+          <svg class="conf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a08000" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span><strong>Confidential:</strong> A <code>.com</code> domain can be used — approx ₹1,299/year. Staff tone is soft and approachable.</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Store Image</span>
+          <div class="images-row">
+            <img class="lead-img" src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAESP2BFqozoGH61pOsqjzhPJZUtzU1cGQhXdk0YrBi7iGDptgTx5NVHTWtsetho3MNO8gEr1gg9ZFopZOMjYiN5nmlA-YY3yL-3NvAatJP_1qedy9Hr7weAMfqEtw1aV9owj892=s931-k-no" alt="Jagdamba Jewellers store" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━ LEAD 4 ━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="lead-card">
+      <div class="card-header">
+        <span class="lead-num">#04</span>
+        <span class="lead-name">OM Jewellers</span>
+      </div>
+      <div class="card-body">
+        <div class="fields-grid">
+          <div class="field">
+            <span class="field-label">Phone</span>
+            <span class="field-value"><a href="tel:09314876567">09314876567</a></span>
+          </div>
+          <div class="field">
+            <span class="field-label">Outreach Method</span>
+            <span class="outreach-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.51 16z"/></svg>
+              Cold Call / Cold Visit
+            </span>
+          </div>
+          <div class="field">
+            <span class="field-label">Suggested Outreach Time</span>
+            <span class="field-value"><span class="time-badge">2 PM – 5 PM</span></span>
+          </div>
+          <div class="field">
+            <span class="field-label">Website Status</span>
+            <span class="status-low">Low-quality (Linktree)</span>
+          </div>
+          <div class="field field-full">
+            <span class="field-label">Address</span>
+            <span class="field-value">4/22, Vidyut Abhiyanta Colony, Sector 4, Malviya Nagar, Jaipur</span>
+          </div>
+          <div class="field field-full">
+            <span class="field-label">Current Website</span>
+            <span class="field-value"><a href="https://linktr.ee/omjewellersjaipur" target="_blank" rel="noopener noreferrer">linktr.ee/omjewellersjaipur</a></span>
+          </div>
+        </div>
+        <hr class="divider" />
+        <div class="field">
+          <span class="field-label">Why This Lead Is Valuable</span>
+          <div class="info-block">Currently relying on a basic Linktree page for WhatsApp and social media links. A professional website would help them showcase jewelry collections properly and enable online ordering features, with product images, videos, item listings, and an admin panel — similar to many modern jewelry businesses.</div>
+        </div>
+        <div class="conf-block">
+          <svg class="conf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a08000" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span><strong>Confidential:</strong> A <code>.com</code> domain can be used — approx ₹1,299/year.</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Store Image</span>
+          <div class="images-row">
+            <img class="lead-img" src="https://lh3.googleusercontent.com/p/AF1QipPwVtFXPzub9gEDOXwCP0_S9oxC6YZ8dKnksrr6=s709-k-no" alt="OM Jewellers store" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━ LEAD 5 ━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="lead-card">
+      <div class="card-header">
+        <span class="lead-num">#05</span>
+        <span class="lead-name">Peush Nag Advocate</span>
+      </div>
+      <div class="card-body">
+        <div class="fields-grid">
+          <div class="field">
+            <span class="field-label">Phone</span>
+            <span class="field-value"><a href="tel:09829070211">09829070211</a></span>
+          </div>
+          <div class="field">
+            <span class="field-label">Outreach Method</span>
+            <span class="outreach-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.51 16z"/></svg>
+              Cold Call / Cold Visit
+            </span>
+          </div>
+          <div class="field">
+            <span class="field-label">Suggested Outreach Time</span>
+            <span class="field-value"><span class="time-badge">3 PM – 4 PM</span></span>
+          </div>
+          <div class="field">
+            <span class="field-label">Website Status</span>
+            <span class="status-none">No Website</span>
+          </div>
+          <div class="field field-full">
+            <span class="field-label">Address</span>
+            <span class="field-value">67, Ajmer Rd, Doctors Colony, DCM, Jaipur, Rajasthan</span>
+          </div>
+        </div>
+        <hr class="divider" />
+        <div class="field">
+          <span class="field-label">Why This Lead Is Valuable</span>
+          <div class="info-block">Peush is a high-level advocate with a well-established office and strong professional experience. A professional website could help showcase case studies, office images, legal services, and allow direct client inquiries or bookings. This appears to be a high-potential lead.</div>
+        </div>
+        <div class="conf-block">
+          <svg class="conf-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a08000" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span><strong>Confidential:</strong> A <code>.com</code> domain can be used — approx ₹1,299/year.</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Office Images</span>
+          <div class="images-row">
+            <img class="lead-img" src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG11PjzJfSqPdOWgJ0gUwMKBcGsE1IIjl34hQc45uYXk23p-FKr6446TYXBh6j28BpAM-eOXnkolntRSYDjYJd_63Zabh9DcRSdevZu-_wlxb-RTULXJjR0UvaNp_9wcLHyVnh7=s798-k-no-pi0-ya109.170006-ro0-fo100" alt="Peush Nag Advocate office - view 1" loading="lazy" />
+            <img class="lead-img" src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAH8_6loD9P-9Jz6wTQ0o_XqLBKCDfmZvGx85ZQJnHoxWqR0kp7DnnSnfTCV3w_VlHyq9JpgBQZeP9u-xOL3OEN4NlSrPABvDxaOxSiAKUltx7CtclocufLHu3mFm4o-hA1jGnvPeg=s798-k-no-pi0-ya180-ro0-fo100" alt="Peush Nag Advocate office - view 2" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>3Digree &nbsp;·&nbsp; Internal Document &nbsp;·&nbsp; Do not distribute</footer>
+
+  <script>
+    // Guard: redirect to password page if session not set
+    if (!sessionStorage.getItem('3di_access')) {
+      window.location.replace('/confirm-password');
+    }
+  </script>
+
+</body>
+</html>
